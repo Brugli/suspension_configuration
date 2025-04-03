@@ -79,7 +79,7 @@ func _process(delta: float) -> void:
 	var t = bl.lateral_force / 50 * linear_velocity.length() / 300
 	var r = -acceleration_input * (linear_velocity.length()) / 400
 	physics_node.rotation_degrees.z = clamp(physics_node.rotation_degrees.z, -15, 15)
-	physics_node.rotation.z = lerp(physics_node.rotation.z, t, delta * 3)
+	physics_node.rotation.z = lerp(physics_node.rotation.z, t, delta * 2)
 	physics_node.rotation_degrees.x = clamp(physics_node.rotation_degrees.x, -5, 15)
 	physics_node.rotation.x = lerp(physics_node.rotation.x, r, delta * 4)
 	

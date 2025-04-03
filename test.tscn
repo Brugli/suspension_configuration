@@ -1,15 +1,17 @@
-[gd_scene load_steps=12 format=3 uid="uid://bd8ctv3bniufx"]
+[gd_scene load_steps=16 format=3 uid="uid://bd8ctv3bniufx"]
 
-[ext_resource type="Texture2D" uid="uid://twqc5bcq3cr8" path="res://icon.svg" id="1_jarr5"]
+[ext_resource type="Texture2D" uid="uid://cx56v0ioymfmh" path="res://cracked_dirt_128.jpg" id="1_ufwh5"]
 [ext_resource type="Script" path="res://camera_3d.gd" id="2_7woql"]
+[ext_resource type="Script" path="res://camera_3d_2.gd" id="3_b4txg"]
 [ext_resource type="PackedScene" uid="uid://bv4xj7kdr4nrp" path="res://version_2.tscn" id="3_hxgg8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_np01t"]
 size = Vector3(250, 1, 250)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lvuot"]
-albedo_texture = ExtResource("1_jarr5")
-uv1_scale = Vector3(0.24, 0.24, 0.24)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gn2it"]
+albedo_color = Color(0.795616, 0.583245, 0.322192, 1)
+albedo_texture = ExtResource("1_ufwh5")
+uv1_scale = Vector3(0.1, 0.1, 0.1)
 uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_lre5s"]
@@ -31,6 +33,22 @@ size = Vector3(24.6, 1, 24.6)
 [sub_resource type="BoxMesh" id="BoxMesh_p65cv"]
 size = Vector3(24.6, 1, 24.6)
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xwc7y"]
+sky_top_color = Color(1, 1, 1, 1)
+sky_horizon_color = Color(0.498021, 0.765002, 1, 1)
+sky_curve = 0.113679
+sky_energy_multiplier = 1.5
+
+[sub_resource type="Sky" id="Sky_pq6fh"]
+sky_material = SubResource("ProceduralSkyMaterial_xwc7y")
+
+[sub_resource type="Environment" id="Environment_yk14c"]
+background_mode = 2
+sky = SubResource("Sky_pq6fh")
+fog_enabled = true
+fog_light_color = Color(0.866211, 0.611134, 0.419479, 1)
+fog_sky_affect = 0.825
+
 [node name="Node3D" type="Node3D"]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
@@ -40,27 +58,34 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_np01t")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-material_override = SubResource("StandardMaterial3D_lvuot")
+material_override = SubResource("StandardMaterial3D_gn2it")
 mesh = SubResource("BoxMesh_lre5s")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.573577, 0.819152, 0, -0.819152, 0.573576, 0, 9, 7.5)
-current = true
 script = ExtResource("2_7woql")
 
 [node name="Camera3D2" type="Camera3D" parent="."]
 transform = Transform3D(0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, 3, 3, 3)
+script = ExtResource("3_b4txg")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.707107, -3.09086e-08, 0.707107, -0.707107, -3.09086e-08, 0.707107, 0, -1, -4.37114e-08, 4, 5, 0)
 
 [node name="RigidBody3D" parent="." instance=ExtResource("3_hxgg8")]
-transform = Transform3D(0.999998, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 2, 0)
+transform = Transform3D(0.825644, 0, -0.564188, 0, 1, 0, 0.564188, 0, 0.825645, 67.5337, 2, -117.583)
 physics_material_override = SubResource("PhysicsMaterial_jtqjs")
 gravity_scale = 1.25
-front_suspension_rest_distance = 0.4
+debug = false
+front_suspension_rest_distance = 0.3
+rear_suspension_rest_distance = 0.6
 spring_strength = 750.0
 spring_damper = 100.0
+engine_power = 450.0
+
+[node name="Camera3D" type="Camera3D" parent="RigidBody3D"]
+transform = Transform3D(-0.996195, 0, 0.0871556, 0, 1, 0, -0.0871556, 0, -0.996195, 2, 0.5, -4.5)
+current = true
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, -17)
@@ -111,3 +136,6 @@ shape = SubResource("BoxShape3D_d1ore")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D4/CollisionShape3D"]
 mesh = SubResource("BoxMesh_dwhx5")
 skeleton = NodePath("../..")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yk14c")

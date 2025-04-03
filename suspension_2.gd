@@ -49,8 +49,8 @@ func _physics_process(delta: float) -> void:
 		wheel_radius = chassis.rear_wheel_radius
 		
 	suspension_rest_distance = chassis.actual_suspension_rest_distance
-	
-	if is_colliding() && chassis.linear_velocity.length() > 10:
+	spin_wheel_mesh()
+	if is_colliding() && chassis.linear_velocity.length() > 5:
 		dust.emitting = true
 	else:
 		dust.set_emitting(false)
@@ -58,7 +58,7 @@ func _physics_process(delta: float) -> void:
 	if is_colliding():
 		var collision_point = get_collision_point()
 		
-		spin_wheel_mesh()
+		
 		apply_lateral_force(collision_point, delta)
 		apply_friction(collision_point)
 		acceleration(collision_point)
@@ -92,7 +92,7 @@ func set_wheel_position(new_y_position: float):
 
 func set_dust_position(new_y_position: float):
 	dust.position.y = lerp(tires_035.position.y, new_y_position, 0.75)
-	
+	#dust.position.z = -0.25
 func apply_lateral_force(collision_point, delta):
 	var direction: Vector3 = global_basis.x
 	var state: = PhysicsServer3D.body_get_direct_state(chassis.get_rid())
