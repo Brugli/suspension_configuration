@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqvsw8075yw7k"]
+
+[ext_resource type="Script" path="res://pid_controller.gd" id="1_fhee4"]
+
+[node name="pid_controller" type="Node"]
+script = ExtResource("1_fhee4")

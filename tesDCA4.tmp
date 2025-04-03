@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://bd8ctv3bniufx"]
+
+[ext_resource type="Texture2D" uid="uid://twqc5bcq3cr8" path="res://icon.svg" id="1_jarr5"]
+[ext_resource type="Script" path="res://camera_3d.gd" id="2_7woql"]
+[ext_resource type="PackedScene" uid="uid://bv4xj7kdr4nrp" path="res://version_2.tscn" id="3_hxgg8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_np01t"]
+size = Vector3(250, 1, 250)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lvuot"]
+albedo_texture = ExtResource("1_jarr5")
+uv1_scale = Vector3(0.24, 0.24, 0.24)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_lre5s"]
+size = Vector3(250, 1, 250)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_np01t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+material_override = SubResource("StandardMaterial3D_lvuot")
+mesh = SubResource("BoxMesh_lre5s")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.573577, 0.819152, 0, -0.819152, 0.573576, 0, 9, 7.5)
+current = true
+script = ExtResource("2_7woql")
+
+[node name="Camera3D2" type="Camera3D" parent="."]
+transform = Transform3D(0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, 3, 1, 3)
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -3.09086e-08, 0.707107, -0.707107, -3.09086e-08, 0.707107, 0, -1, -4.37114e-08, 4, 5, 0)
+
+[node name="RigidBody3D" parent="." instance=ExtResource("3_hxgg8")]
+front_suspension_rest_distance = 1.155
+rear_suspension_rest_distance = 1.485

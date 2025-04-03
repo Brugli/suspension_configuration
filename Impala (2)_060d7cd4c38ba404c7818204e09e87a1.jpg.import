@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://c0g0l2j7a1yhy"
+path.s3tc="res://.godot/imported/Impala (2)_060d7cd4c38ba404c7818204e09e87a1.jpg-a6d7f9f8c7df815165e930272b05d0c6.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "6b45cf05ec0c6129e56a456c5e2a1b13"
+}
+
+[deps]
+
+source_file="res://Impala (2)_060d7cd4c38ba404c7818204e09e87a1.jpg"
+dest_files=["res://.godot/imported/Impala (2)_060d7cd4c38ba404c7818204e09e87a1.jpg-a6d7f9f8c7df815165e930272b05d0c6.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

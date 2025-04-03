@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bd2jm0ugh0xwr"]
+
+[ext_resource type="ArrayMesh" uid="uid://dxhxmaujiyd0w" path="res://tyre_dust_particle.tres" id="1_wnwml"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fd41f"]
+gravity = Vector3(0, 1, 0)
+
+[node name="Node3D" type="GPUParticles3D"]
+emitting = false
+amount = 50
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_fd41f")
+draw_pass_1 = ExtResource("1_wnwml")

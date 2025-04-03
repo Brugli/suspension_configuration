@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://xmn1yoixoqls"]
+
+[ext_resource type="ArrayMesh" uid="uid://dxhxmaujiyd0w" path="res://tyre_dust_particle.tres" id="1_jwyqa"]
+
+[node name="Icosphere" type="MeshInstance3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+mesh = ExtResource("1_jwyqa")
+skeleton = NodePath("")
