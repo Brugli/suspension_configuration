@@ -41,9 +41,10 @@ func _init() -> void:
 	last_z_rotation = rotation_degrees.z
 	integral = 0.0
 	
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	acceleration_input = Input.get_axis("reverse", "forward")
 	acceleration_input = clamp(acceleration_input, -0.75, 1)
+	#acceleration_input = lerp(acceleration_input, acceleration_input, 0.1)
 	steering_input = Input.get_axis("turn_right", "turn_left")
 	steering_rotation = steering_input * steering_angle
 	
