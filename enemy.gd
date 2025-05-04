@@ -17,7 +17,7 @@ extends RigidBody3D
 
 var acceleration_input: float
 var steering_input: float
-@onready var steering_rotation: float = 0
+var steering_rotation: float
 var front_angle: float = 0
 var rear_angle: float = 0
 var body_offset : float

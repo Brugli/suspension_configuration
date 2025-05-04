@@ -11,13 +11,11 @@ var front_angle = 0
 var rear_angle = 0
 var suspension_rest_distance
 var wheel_radius
-var lateral_force: float = 0
+var lateral_force: float = 0.0
 
 @onready var parent_node: Node3D = get_parent()
 
-@onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 @onready var tires_035: MeshInstance3D = $Tires_035
-@onready var collision_shape_3d: CollisionShape3D = $StaticBody3D/CollisionShape3D
 @onready var dust: GPUParticles3D = $Node3D
 
 
@@ -57,8 +55,6 @@ func _physics_process(delta: float) -> void:
 
 	if is_colliding():
 		var collision_point = get_collision_point()
-		
-		
 		apply_lateral_force(collision_point, delta)
 		apply_friction(collision_point)
 		acceleration(collision_point)

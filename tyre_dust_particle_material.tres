@@ -4,7 +4,8 @@
 transparency = 1
 depth_draw_mode = 1
 shading_mode = 2
-albedo_color = Color(0.625521, 0.417807, 0.229736, 0.705882)
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.519717, 0.384939, 0.182505, 0.705882)
 rim_enabled = true
 rim = 0.15
 rim_tint = 1.0

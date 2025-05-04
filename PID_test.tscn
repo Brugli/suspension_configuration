@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://jhs2ekwtqkpb"]
+
+[ext_resource type="Texture2D" uid="uid://cx56v0ioymfmh" path="res://cracked_dirt_128.jpg" id="1_hy8i3"]
+[ext_resource type="Script" path="res://pid_test.gd" id="2_w77g7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vqxbt"]
+size = Vector3(250, 1, 250)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h5rv1"]
+albedo_color = Color(0.795616, 0.583245, 0.322192, 1)
+albedo_texture = ExtResource("1_hy8i3")
+uv1_scale = Vector3(0.1, 0.1, 0.1)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_gyjrp"]
+size = Vector3(250, 1, 250)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_clxqy"]
+radius = 2.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_sp32n"]
+radius = 2.0
+height = 4.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_lspy8"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_vqxbt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+material_override = SubResource("StandardMaterial3D_h5rv1")
+mesh = SubResource("BoxMesh_gyjrp")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+script = ExtResource("2_w77g7")
+target = -90.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_clxqy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D/CollisionShape3D"]
+mesh = SubResource("SphereMesh_sp32n")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="RigidBody3D/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+mesh = SubResource("BoxMesh_lspy8")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 15, 0)

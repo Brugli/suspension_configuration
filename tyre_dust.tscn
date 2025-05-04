@@ -1,17 +1,32 @@
-[gd_scene load_steps=7 format=4 uid="uid://bd2jm0ugh0xwr"]
+[gd_scene load_steps=9 format=4 uid="uid://bd2jm0ugh0xwr"]
 
 [ext_resource type="Material" uid="uid://cpicmobqm86q4" path="res://tyre_dust_particle_material.tres" id="1_rr3ob"]
 
+[sub_resource type="Curve" id="Curve_5y8f5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.768116, 0.659341), -0.90989, -0.90989, 0, 0, Vector2(1, 0), -3.33626, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ay7xh"]
+curve = SubResource("Curve_5y8f5")
+
 [sub_resource type="Curve" id="Curve_wcfuv"]
-_data = [Vector2(0, 0.230769), 0.0, 4.54945, 0, 0, Vector2(0.0652174, 0.626374), 1.27953, 1.27953, 0, 0, Vector2(0.862319, 0.505494), -1.8956, -1.8956, 0, 0, Vector2(1, 0.197802), -1.77795, 0.0, 0, 0]
-point_count = 4
+_data = [Vector2(0, 0.362637), 0.929458, 2.27473, 0, 0, Vector2(0.797101, 0.615385), -1.8956, -1.8956, 0, 0, Vector2(1, 0.197802), -1.77795, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_yqkfo"]
 curve = SubResource("Curve_wcfuv")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fd41f"]
+emission_shape = 1
+emission_sphere_radius = 1.0
 gravity = Vector3(0, 0.1, 0)
 scale_curve = SubResource("CurveTexture_yqkfo")
+alpha_curve = SubResource("CurveTexture_ay7xh")
+turbulence_enabled = true
+turbulence_noise_strength = 5.0
+turbulence_noise_speed_random = 0.5
+turbulence_initial_displacement_min = -0.499999
+turbulence_initial_displacement_max = 0.500001
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_wnr2f"]
 _surfaces = [{
@@ -44,6 +59,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_wnr2f")
 
 [node name="Node3D" type="GPUParticles3D"]
+emitting = false
 amount = 50
 lifetime = 3.0
 process_material = SubResource("ParticleProcessMaterial_fd41f")

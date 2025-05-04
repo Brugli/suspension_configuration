@@ -1,11 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://bd8ctv3bniufx"]
+[gd_scene load_steps=19 format=3 uid="uid://bd8ctv3bniufx"]
 
-[ext_resource type="Script" path="res://cam_switcher.gd" id="1_tqjan"]
 [ext_resource type="Texture2D" uid="uid://cx56v0ioymfmh" path="res://cracked_dirt_128.jpg" id="1_ufwh5"]
-[ext_resource type="Script" path="res://camera_1.gd" id="2_7woql"]
+[ext_resource type="Script" path="res://camera_3d.gd" id="2_7woql"]
+[ext_resource type="Script" path="res://camera_3d_2.gd" id="3_b4txg"]
 [ext_resource type="PackedScene" uid="uid://bv4xj7kdr4nrp" path="res://version_2.tscn" id="3_hxgg8"]
 [ext_resource type="Script" path="res://interpolation_ray.gd" id="5_iucgy"]
-[ext_resource type="Script" path="res://chase_cam.gd" id="6_v0t0w"]
+[ext_resource type="Script" path="res://enemy.gd" id="6_mys7b"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_np01t"]
 size = Vector3(250, 1, 250)
@@ -49,8 +49,13 @@ fog_light_color = Color(0.866211, 0.611134, 0.419479, 1)
 fog_density = 1.0
 fog_sky_affect = 0.825
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_4mqrb"]
+radius = 2.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_pbas8"]
+size = Vector3(2, 2, 4)
+
 [node name="Node3D" type="Node3D"]
-script = ExtResource("1_tqjan")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -62,14 +67,21 @@ shape = SubResource("BoxShape3D_np01t")
 material_override = SubResource("StandardMaterial3D_gn2it")
 mesh = SubResource("BoxMesh_lre5s")
 
-[node name="Camera_1" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.573577, 0.819152, 0, -0.819152, 0.573576, 0, 15, 14)
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.573577, 0.819152, 0, -0.819152, 0.573576, 0, 15, 1)
 current = true
 fov = 90.0
 script = ExtResource("2_7woql")
 
+[node name="Camera3D2" type="Camera3D" parent="."]
+transform = Transform3D(0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, 3, 3, 3)
+script = ExtResource("3_b4txg")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.707107, -3.09086e-08, 0.707107, -0.707107, -3.09086e-08, 0.707107, 0, -1, -4.37114e-08, 4, 5, 0)
+
+[node name="Camera3D3" type="Camera3D" parent="."]
+transform = Transform3D(-0.996195, 0, 0.0871557, 0, 1, 0, -0.0871557, 0, -0.996195, 2, 2.5, -4.5)
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, -17)
@@ -128,14 +140,18 @@ environment = SubResource("Environment_yk14c")
 target_position = Vector3(0, -10, 0)
 script = ExtResource("5_iucgy")
 
-[node name="chase_cam" type="Camera3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 4.5, -6.5)
-script = ExtResource("6_v0t0w")
-
-[node name="Node3D5" type="Node3D" parent="chase_cam"]
-transform = Transform3D(-0.999999, 0, 8.74227e-08, 0, 1, 0, -8.74227e-08, 0, -0.999999, 1.00536e-06, -2.1, -11.5)
-
 [node name="RigidBody3D" parent="." instance=ExtResource("3_hxgg8")]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 1.8, 0)
 front_suspension_rest_distance = 0.35
 rear_suspension_rest_distance = 0.7
+
+[node name="enemy" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -35)
+angular_damp = 0.25
+script = ExtResource("6_mys7b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="enemy"]
+shape = SubResource("SphereShape3D_4mqrb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="enemy"]
+mesh = SubResource("BoxMesh_pbas8")
