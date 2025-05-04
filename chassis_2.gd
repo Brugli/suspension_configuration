@@ -74,19 +74,19 @@ func _process(delta: float) -> void:
 		body_node.rotation.x = 0
 		
 	if Input.is_action_pressed("handbrake"):
-		front_tire_grip = 0.35
-		rear_tire_grip = 0.2
+		front_tire_grip = lerp(front_tire_grip, 0.35, 0.1)
+		rear_tire_grip = lerp(rear_tire_grip, 0.2, 0.1)
 	elif steering_input > 0:
-		front_tire_grip = 0.6
-		rear_tire_grip = 0.5
+		front_tire_grip = lerp(front_tire_grip, 0.6, 0.1)
+		rear_tire_grip = lerp(rear_tire_grip, 0.5, 0.1)
 	else:
-		front_tire_grip = 0.5
-		rear_tire_grip = 0.5
+		front_tire_grip = lerp(front_tire_grip, 0.5, 0.1)
+		rear_tire_grip = lerp(rear_tire_grip, 0.5, 0.1)
 	
 	physics_node.rotation_degrees.z = clamp(physics_node.rotation_degrees.z, -15, 15)
-	physics_node.rotation.z = lerp(physics_node.rotation.z, tilt, delta)
+	physics_node.rotation.z = lerp(physics_node.rotation.z, tilt / 1.5, 0.05)
 	physics_node.rotation_degrees.x = clamp(physics_node.rotation_degrees.x, -5, 10)
-	physics_node.rotation.x = lerp(physics_node.rotation.x, roll, delta)
+	physics_node.rotation.x = lerp(physics_node.rotation.x, roll / 1.5 , 0.05)
 	
 func update_x_angle(current_angle: float, target_angle: float, delta: float) -> float:
 	if delta <= 0:

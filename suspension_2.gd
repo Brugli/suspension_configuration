@@ -38,9 +38,9 @@ func _physics_process(delta: float) -> void:
 		if chassis.steering_rotation !=0:
 			var angle = clamp(rotation.y + chassis.steering_rotation, -chassis.steering_angle, chassis.steering_angle)
 			var new_rotation = angle * delta
-			rotation.y = lerp(rotation.y, new_rotation, 0.2)
+			rotation.y = lerp(rotation.y, new_rotation, 0.08)
 		else:
-			rotation.y = lerp(rotation.y, 0.0, 0.3)
+			rotation.y = lerp(rotation.y, 0.0, 0.1)
 	else:
 		#parent_node.rotation.x = lerp(parent_node.rotation.x, rear_angle, 0.1)
 		#suspension_rest_distance = chassis.rear_suspension_rest_distance
