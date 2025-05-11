@@ -1,5 +1,8 @@
 extends RigidBody3D
 
+@onready var player: RigidBody3D = $"../RigidBody3D"
+var player_angle: float = 0.0
+
 @export var debug : bool
 
 @export var front_suspension_rest_distance: float = 0.5
@@ -40,12 +43,16 @@ func _init() -> void:
 	last_x_rotation = rotation_degrees.x
 	last_z_rotation = rotation_degrees.z
 	integral = 0.0
-	
+		
 func _process(delta: float) -> void:
-	acceleration_input = Input.get_axis("reverse", "forward")
-	acceleration_input = clamp(acceleration_input, -0.75, 1)
-	steering_input = Input.get_axis("turn_right", "turn_left")
-	steering_rotation = steering_input * steering_angle
+	find_angle()
+	acceleration_input = 0.5
+	if not player_angle == 0:
+		steering_input = 1
+	else:
+		steering_input = 0
+	
+	steering_rotation = steering_input * player_angle
 	
 	if not ray_cast_3d.is_colliding():
 		set_angular_damp(1.5)
@@ -87,6 +94,34 @@ func _process(delta: float) -> void:
 	physics_node.rotation.z = lerp(physics_node.rotation.z, tilt, delta)
 	physics_node.rotation_degrees.x = clamp(physics_node.rotation_degrees.x, -5, 10)
 	physics_node.rotation.x = lerp(physics_node.rotation.x, roll, delta)
+
+#func find_angle():
+	#var difference = Vector2(player.global_position.x, player.global_position.z) - Vector2(global_position.x, global_position.z)
+	#var angle = rad_to_deg(difference.angle())
+	#var fixed = fmod((angle + 270 + 540.0), 360.0) - 180.0
+	#print(-fixed)
+	#player_angle = clamp(player_angle, -steering_angle, steering_angle)
+	#player_angle = -fixed
+@onready var locator: RayCast3D = $locator
+
+func find_angle():
+	DebugDraw3D.draw_arrow(Vector3(global_position.x, 0.3, global_position.z), Vector3(player.global_position.x, 0.3, player.global_position.z), Color.AQUA, 0.2, true)
+	var difference = Vector3(player.global_position.x, 0.3, player.global_position.z) - Vector3(global_position.x, 0.3, global_position.z)
+	var angle = rad_to_deg(difference.signed_angle_to(locator.global_basis.z, Vector3.UP))
+	var fixed = fmod((angle + 540.0), 360.0) - 180.0
+	print(-fixed)
+	player_angle = clamp(player_angle, -steering_angle, steering_angle)
+	player_angle = -fixed
+	
+func signed_angle_to(u, v, axis):
+	var dot_p = u.dot(v)
+	var dir = u.cross(v).dot(axis)
+
+	var unsigned = acos(dot_p / u.length() / v.length())
+	if dir > 0:
+		return unsigned
+	else:
+		return -unsigned
 	
 func update_x_angle(current_angle: float, target_angle: float, delta: float) -> float:
 	if delta <= 0:

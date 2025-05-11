@@ -413,6 +413,7 @@ mass = 25.0
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, -0.2, 0)
 script = ExtResource("1_kjmrn")
+debug = true
 spring_damper = 50.0
 front_wheel_radius = 0.4
 rear_wheel_radius = 0.4
@@ -508,3 +509,6 @@ skeleton = NodePath("")
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 target_position = Vector3(0, -1.5, 0)
+
+[node name="locator" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, 5)

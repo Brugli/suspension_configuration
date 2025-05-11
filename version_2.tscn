@@ -23,6 +23,7 @@ size = Vector3(2.5, 1, 4.5)
 resource_name = "Tires.002"
 cull_mode = 2
 albedo_texture = ExtResource("3_3upiu")
+metallic_specular = 0.0
 metallic_texture = ExtResource("4_u8pk7")
 metallic_texture_channel = 2
 roughness_texture = ExtResource("4_u8pk7")
@@ -409,6 +410,7 @@ shadow_mesh = SubResource("ArrayMesh_a42yc")
 
 [node name="RigidBody3D" type="RigidBody3D"]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0.3, 0)
+collision_layer = 3
 mass = 25.0
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, -0.2, 0)
@@ -507,4 +509,3 @@ skeleton = NodePath("")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-target_position = Vector3(0, -1.5, 0)
