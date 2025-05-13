@@ -139,3 +139,5 @@ rear_suspension_rest_distance = 0.7
 
 [node name="RigidBody3D2" parent="." instance=ExtResource("7_sa6rc")]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 25, 0.3, 25)
+front_suspension_rest_distance = 0.35
+rear_suspension_rest_distance = 0.7

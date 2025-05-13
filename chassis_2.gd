@@ -76,7 +76,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("handbrake"):
 		front_tire_grip = lerp(front_tire_grip, 0.35, 0.1)
 		rear_tire_grip = lerp(rear_tire_grip, 0.2, 0.1)
-	elif steering_input > 0:
+	elif not steering_input == 0:
 		front_tire_grip = lerp(front_tire_grip, 0.6, 0.1)
 		rear_tire_grip = lerp(rear_tire_grip, 0.5, 0.1)
 	else:

@@ -1,7 +1,9 @@
 extends RigidBody3D
 
 @onready var player: RigidBody3D = $"../RigidBody3D"
+@onready var locator: RayCast3D = $locator
 var player_angle: float = 0.0
+var distance_to: float = 0.0
 
 @export var debug : bool
 
@@ -27,8 +29,8 @@ var body_offset : float
 
 @onready var body_node: Node3D = $body_node
 @onready var physics_node: Node3D = $body_node/physics_node
-@onready var bl: RayCast3D = $Node3D3/BL
-@onready var ray_cast_3d: RayCast3D = $RayCast3D
+@onready var ground_ray: RayCast3D = $ground_ray
+@onready var bl: RayCast3D = $bl/ray
 
 var last_x_rotation
 var last_z_rotation
@@ -46,7 +48,10 @@ func _init() -> void:
 		
 func _process(delta: float) -> void:
 	find_angle()
-	acceleration_input = 0.5
+	if distance_to > 10:
+		acceleration_input = 0.5
+	else:
+		acceleration_input = 0.0
 	if not player_angle == 0:
 		steering_input = 1
 	else:
@@ -54,7 +59,7 @@ func _process(delta: float) -> void:
 	
 	steering_rotation = steering_input * player_angle
 	
-	if not ray_cast_3d.is_colliding():
+	if not ground_ray.is_colliding():
 		set_angular_damp(1.5)
 		var input_x = update_x_angle(rotation_degrees.x, target, delta)
 		var input_z = update_z_angle(rotation_degrees.z, target, delta)
@@ -80,10 +85,10 @@ func _process(delta: float) -> void:
 		body_node.position.y = front_suspension_rest_distance + 0.5
 		body_node.rotation.x = 0
 		
-	if Input.is_action_pressed("handbrake"):
-		front_tire_grip = 0.35
-		rear_tire_grip = 0.2
-	elif steering_input > 0:
+	#if Input.is_action_pressed("handbrake"):
+		#front_tire_grip = 0.35
+		#rear_tire_grip = 0.2
+	if not steering_input == 0:
 		front_tire_grip = 0.6
 		rear_tire_grip = 0.5
 	else:
@@ -95,33 +100,14 @@ func _process(delta: float) -> void:
 	physics_node.rotation_degrees.x = clamp(physics_node.rotation_degrees.x, -5, 10)
 	physics_node.rotation.x = lerp(physics_node.rotation.x, roll, delta)
 
-#func find_angle():
-	#var difference = Vector2(player.global_position.x, player.global_position.z) - Vector2(global_position.x, global_position.z)
-	#var angle = rad_to_deg(difference.angle())
-	#var fixed = fmod((angle + 270 + 540.0), 360.0) - 180.0
-	#print(-fixed)
-	#player_angle = clamp(player_angle, -steering_angle, steering_angle)
-	#player_angle = -fixed
-@onready var locator: RayCast3D = $locator
-
 func find_angle():
 	DebugDraw3D.draw_arrow(Vector3(global_position.x, 0.3, global_position.z), Vector3(player.global_position.x, 0.3, player.global_position.z), Color.AQUA, 0.2, true)
 	var difference = Vector3(player.global_position.x, 0.3, player.global_position.z) - Vector3(global_position.x, 0.3, global_position.z)
+	distance_to = difference.length()
 	var angle = rad_to_deg(difference.signed_angle_to(locator.global_basis.z, Vector3.UP))
 	var fixed = fmod((angle + 540.0), 360.0) - 180.0
-	print(-fixed)
 	player_angle = clamp(player_angle, -steering_angle, steering_angle)
 	player_angle = -fixed
-	
-func signed_angle_to(u, v, axis):
-	var dot_p = u.dot(v)
-	var dir = u.cross(v).dot(axis)
-
-	var unsigned = acos(dot_p / u.length() / v.length())
-	if dir > 0:
-		return unsigned
-	else:
-		return -unsigned
 	
 func update_x_angle(current_angle: float, target_angle: float, delta: float) -> float:
 	if delta <= 0:

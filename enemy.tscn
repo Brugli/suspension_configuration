@@ -413,7 +413,6 @@ mass = 25.0
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, -0.2, 0)
 script = ExtResource("1_kjmrn")
-debug = true
 spring_damper = 50.0
 front_wheel_radius = 0.4
 rear_wheel_radius = 0.4
@@ -423,66 +422,66 @@ engine_power = 500.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_q1r3u")
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="fl" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0.7, 1.5)
 
-[node name="FL" type="RayCast3D" parent="Node3D"]
+[node name="ray" type="RayCast3D" parent="fl"]
 transform = Transform3D(1, 0, 0, 3.55271e-15, 1, 0, 0, 0, 1, 5.96046e-08, 0, 1.19209e-07)
 target_position = Vector3(0, -2, 0)
 script = ExtResource("2_7sh1y")
 is_front_wheel = true
 
-[node name="Tires_035" type="MeshInstance3D" parent="Node3D/FL"]
+[node name="Tires_035" type="MeshInstance3D" parent="fl/ray"]
 transform = Transform3D(0.4, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0.1, -0.4, 0)
 mesh = SubResource("ArrayMesh_dvnx8")
 
-[node name="Node3D" parent="Node3D/FL" instance=ExtResource("5_oq2s7")]
+[node name="Node3D" parent="fl/ray" instance=ExtResource("5_oq2s7")]
 transform = Transform3D(0.4, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0.1, -0.4, 0)
 
-[node name="Node3D2" type="Node3D" parent="."]
+[node name="fr" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0.7, 1.5)
 
-[node name="FR" type="RayCast3D" parent="Node3D2"]
+[node name="ray" type="RayCast3D" parent="fr"]
 transform = Transform3D(1, 1.49012e-08, 0, -3.72529e-08, 1, 0, 0, 0, 1, -5.96046e-08, 0, 1.19209e-07)
 target_position = Vector3(0, -2, 0)
 script = ExtResource("2_7sh1y")
 is_front_wheel = true
 
-[node name="Tires_035" type="MeshInstance3D" parent="Node3D2/FR"]
+[node name="Tires_035" type="MeshInstance3D" parent="fr/ray"]
 transform = Transform3D(-0.4, 0, -5.28485e-08, 0, 0.35, 0, 6.03983e-08, 0, -0.35, -0.1, -0.4, 0)
 mesh = SubResource("ArrayMesh_dvnx8")
 
-[node name="Node3D" parent="Node3D2/FR" instance=ExtResource("5_oq2s7")]
+[node name="Node3D" parent="fr/ray" instance=ExtResource("5_oq2s7")]
 transform = Transform3D(-0.4, 0, -5.28485e-08, 1.77636e-15, 0.35, 0, 6.03983e-08, 0, -0.35, -0.1, -0.4, 0)
 
-[node name="Node3D3" type="Node3D" parent="."]
+[node name="bl" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0.7, -1.5)
 
-[node name="BL" type="RayCast3D" parent="Node3D3"]
+[node name="ray" type="RayCast3D" parent="bl"]
 transform = Transform3D(1, 0, 0, 3.55271e-15, 1, 0, 0, 0, 1, 5.96046e-08, 0, -1.19209e-07)
 target_position = Vector3(0, -2, 0)
 script = ExtResource("2_7sh1y")
 
-[node name="Tires_035" type="MeshInstance3D" parent="Node3D3/BL"]
+[node name="Tires_035" type="MeshInstance3D" parent="bl/ray"]
 transform = Transform3D(0.5, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0.1, -0.4, 0)
 mesh = SubResource("ArrayMesh_dvnx8")
 
-[node name="Node3D" parent="Node3D3/BL" instance=ExtResource("5_oq2s7")]
+[node name="Node3D" parent="bl/ray" instance=ExtResource("5_oq2s7")]
 transform = Transform3D(0.5, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0.1, -0.4, 0)
 
-[node name="Node3D4" type="Node3D" parent="."]
+[node name="br" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0.7, -1.5)
 
-[node name="BR" type="RayCast3D" parent="Node3D4"]
+[node name="ray" type="RayCast3D" parent="br"]
 transform = Transform3D(1, 0, 0, 3.55271e-15, 1, 0, 0, 0, 1, -5.96046e-08, 0, -1.19209e-07)
 target_position = Vector3(0, -2, 0)
 script = ExtResource("2_7sh1y")
 
-[node name="Tires_035" type="MeshInstance3D" parent="Node3D4/BR"]
+[node name="Tires_035" type="MeshInstance3D" parent="br/ray"]
 transform = Transform3D(-0.5, 0, -5.28485e-08, 0, 0.35, 0, 7.54979e-08, 0, -0.35, -0.1, -0.4, 0)
 mesh = SubResource("ArrayMesh_dvnx8")
 
-[node name="Node3D" parent="Node3D4/BR" instance=ExtResource("5_oq2s7")]
+[node name="Node3D" parent="br/ray" instance=ExtResource("5_oq2s7")]
 transform = Transform3D(-0.5, 0, -5.28485e-08, 0, 0.35, 0, 7.54979e-08, 0, -0.35, -0.1, -0.4, 0)
 
 [node name="body_node" type="Node3D" parent="."]
@@ -506,7 +505,7 @@ transform = Transform3D(-0.697336, 0.061009, -2.66679e-09, 0.00531728, 0.0607769
 mesh = SubResource("ArrayMesh_cushb")
 skeleton = NodePath("")
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
+[node name="ground_ray" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 target_position = Vector3(0, -1.5, 0)
 
